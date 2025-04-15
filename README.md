@@ -41,13 +41,3 @@ Se você não tem o Maven instalado, siga estas instruções:
 
 4. **Verifique a instalação**:
    - Abra um novo terminal e execute: `mvn -version`
-
-## Contribuições
-
-Para contribuir com este projeto:
-
-1. Faça um fork do repositório
-2. Crie uma branch para sua funcionalidade (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
