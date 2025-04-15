@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8091:8091"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-sistema2:5432/segsat_sistema2
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=localhost:9092
+    depends_on:
+      postgres-sistema2:
+        condition: service_healthy
+    networks:
+      - segsat-network
+      - project-segsat-sistema1_kafka-network
+
+  postgres-sistema2:
+    image: postgres:15
+    container_name: postgres-sistema2
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=segsat_sistema2
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - segsat-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  segsat-network:
+    external: true  
+  project-segsat-sistema1_kafka-network:
+    external: true
+
+volumes:
+  postgres-data: 

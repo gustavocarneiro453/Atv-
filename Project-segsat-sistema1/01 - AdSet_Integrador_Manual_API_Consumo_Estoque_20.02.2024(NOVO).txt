@@ -1,0 +1,124 @@
+﻿CONFIGURAÇÕES API ADSET INTEGRADOR PARA  CONSUMO DE ESTOQUE 
+AVISO IMPORTANTE 
+"O consumo da API deverá ser realizado entre os períodos 22h ~ 06h para realizar sincronização do  estoque com a base de dados do parceiro, apenas no período de homologação estaremos  disponibilizando o acesso FULL para realizar os testes necessários." 
+A empresa responsável pelo site do cliente que fará o desenvolvimento para se comunicar com a API,  deverá se identificar e solicitar acesso para o suporte do AdSet Integrador nesse e-mail  suporte@adset.com.br 
+Interface do Serviço: REST: 
+URL: https://www.adset.com.br/integrador/api/estoqueveiculos 
+____________________________________________________________________________ 
+Método: POST: 
+Parâmetros: 
+- Email: "email@email.com.br"  
+- Senha: "******"  
+- CNPJ: "99.999.999/9999-99"  
+- Tipo (Opcional): "Usado" ou "ZeroKm"  
+- Formato (Opcional): "XML" ou "JSON"  
+- Portal (Opcional): "SiteProprio" 
+____________________________________________________________________________ 
+Parâmetro em JSON para estoque de USADO e ZEROKM: 
+"{ 'Email': 'email@email.com.br', 'Senha': '***', 'CNPJ': '99.999.999/9999-99', Portal: 'SiteProprio' }" 
+Exemplo de consumo via Postman: 
+  
+
+Exemplo de consumo via PHP: 
+<?php 
+$curl = curl_init(); 
+curl_setopt_array($curl, array( 
+CURLOPT_URL => 'https://www.adset.com.br/integrador/api/estoqueveiculos', 
+CURLOPT_RETURNTRANSFER => true, 
+CURLOPT_ENCODING => '', 
+CURLOPT_MAXREDIRS => 10,
+CURLOPT_TIMEOUT => 0, 
+CURLOPT_FOLLOWLOCATION => true, 
+CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, 
+CURLOPT_CUSTOMREQUEST => 'POST', 
+CURLOPT_POSTFIELDS =>'"{Email : \'email@email.com.br\', Senha : \'***\', CNPJ :  
+\'99.999.999/9999-99\', Portal : \'SiteProprio\'}"', 
+CURLOPT_HTTPHEADER => array( 
+'Content-Type: application/json' 
+), 
+)); 
+$response = curl_exec($curl); 
+curl_close($curl); 
+echo $response; 
+EXEMPLO DO RETORNO EM JSON 
+{ 
+ "Id": 3456376, 
+ "Loja": "NOME DA EMPRESA", 
+ "LojaId": 3752, 
+ "Tipo": "Carro", 
+ "Marca": "CHEVROLET", 
+ "Modelo": "TRACKER", 
+ "Versao": "1.2 TURBO FLEX PREMIER AUTOMÁTICO", 
+ "Km": 39093, 
+ "AnoFabricacao": 2022, 
+ "AnoModelo": 2023, 
+ "Cor": "Prata", 
+ "Combustivel": "Flex", 
+ "Transmissao": "Automatico", 
+ "Placa": "VIC1234", 
+ "Chassi": "9BGEP76B0PB999999", 
+ "Opcionais": "Airbag do motorista, Airbag duplo, Alarme, Ar condicionado, Ar quente, Bancos de couro,  Computador de bordo, Controle automático de velocidade, Controle de tração, Desembaçador traseiro, Encosto de  cabeça traseiro, Farol de neblina, Freio ABS, Limpador traseiro, Porta-copos, Rádio, Retrovisores elétricos, Rodas  de liga leve, Sensor de chuva, Sensor de estacionamento, Teto solar, Travas elétricas, Vidros elétricos, Volante  com Regulagem de Altura, MP3 Player, Bluetooth, Câmera de Ré, Entrada USB, Direção Elétrica, Kit Multimídia,  Farol de LED, Luz Diurna, Apple CarPlay, Controle de Estabilidade, Integração com SmartPhones, Chave  Reserva, Airbag Lateral, Airbag de Cortina, 6 Airbags, Isofix", 
+ "Caracteristicas": null, 
+ "PrecoDe": null,
+ "Preco": 999900.00, 
+ "Portas": 4, 
+ "Condicao": "Usado", 
+ "Status": "Disponivel", 
+ "Estoque": "ESTOQUE", 
+ "Publicado": true, 
+ "Blindado": false, 
+ "HashDados": "177BABCAF4A51A63427061BE1EF7A8B5", 
+ "HashImagem": "885D3C476576D5DBC06A835A16AD7A7F", 
+ "Fotos": [ 
+ "https://s3.amazonaws.com/adset.images/2b93130f-a77d-4036-ac82- 
+08a0f678ab0a20240130199999.jpeg", 
+ "https://s3.amazonaws.com/adset.images/0140a94e-3169-4ae6-b658- 
+943b6ef244ac20240130199999.jpeg", 
+ "https://s3.amazonaws.com/adset.images/6175a50d-9f0e-4678-93b9- 
+404a0e1b1dc420240130199999.jpeg", 
+ "https://s3.amazonaws.com/adset.images/9a25b139-535e-4b14-93d2- 
+41d65305a78820240130199999.jpeg", 
+ "https://s3.amazonaws.com/adset.images/d465b477-b491-4143-964c 
+01ba38076c5620240130199999.jpeg", 
+ "https://s3.amazonaws.com/adset.images/e5dd7c69-a41b-47ab-940f 
+14557e42277420240130199999.jpeg", 
+ "https://s3.amazonaws.com/adset.images/966969d0-b9d2-44ee-9b30- 
+01add77d71e920240130199999.jpeg", 
+ "https://s3.amazonaws.com/adset.images/940441dc-1009-4112-ae3f 
+9b9531d1bbf620240130199999.jpeg", 
+ "https://s3.amazonaws.com/adset.images/cff3f92d-b433-4713-b480-f7c36f130f2020240130199999.jpeg"  ], 
+ "Observacao": null, 
+ "DataHoraAPI": "20/02/2024 13:09:38", 
+ "SuperOferta": false, 
+ "Video": null, 
+ "Carroceria": "SUV", 
+ "SpinCar": false 
+ },
+PERGUNTAS, ERROS E RESPOSTAS FREQUENTES 
+Observação importante: 
+Importante preparar a rotina de consumo para quando apresentar algum erro não zerar o estoque  no site do cliente, manter o estoque atual até que seja resolvido a crítica. 
+01 – Possíveis Erros? 
+"Error": "Usuário e/ou senha inválidos." 
+"Error": "Não foi localizado empresa com o CNPJ 99.999.999/9999-99" 
+"Error": "O usuário não tem acesso para empresa informada." 
+"Error": "Fora do horário estabelecido para consumo." 
+02 - Existe alguma conta para teste da API?  
+Você pode utilizar a conta que foi criada como já informamos anteriormente no “corpo” desse  documento com as informações. 
+03 - Fora essas informações, há alguma documentação disponível?  Não. Essas informações no “corpo” desse documento são os dados necessários para estabelecer  a requisição conforme, processo bem simples via POST, conforme exemplo em anexo.  
+04 - O parâmetro de tipo quando não é usados é “Novo”?  
+Caso não preencha esse parâmetro o sistema irá retornar os veículos usados e novos, mas se  deseja filtrar um tipo específico os tipos são: "Usado" -> PARA SEMINOVOS ou "ZeroKm" ->  PARA NOVOS.  
+"{Email : 'logincliente@adset.com.br', Senha : '@@@99', CNPJ : '000000000126', Tipo:'Usado',  Portal: 'SiteProprio' }"  
+05 - Inclusão dos campos. ID, LOJAID, COMBUSTIVEL.  
+Através dos campos Status e Estoque vocês poderão filtrar os veículos conforme o cliente deseja.  Pela propriedade Status poderá filtrar por exemplo apenas os veículos com Status Disponível.  Pela propriedade Estoque poderá filtrar os veículos pelo nome do estoque que o cliente solicitar.  
+06 - Para veículo com a informação de blindado.  
+Para veículo Blindado: quando o veículo for blindado o valor será true, quando não for blindado  será false. 
+07 - Quais opções existem para o campo “Tipo”? 
+Para o campo tipo a API retornará as opções:  
+Carro – Para Veículos leves; 
+Moto – Para Motocicletas; 
+Caminhao – Para Veículos pesados. 
+Quando o tipo for igual a “Caminhao” os campos TipoCaminhao, Direcao e Tracao deverão ser  utilizados como complemento de informação. 
+08 - O que é retornado no campo Vídeo? 
+Para o campo em questão será retornando o link do Youtube referente a oferta. 
+09 – Campo SpinCar. 
+Para empresa com o módulo SpinCar: quando a empresa estiver integrada com o Spincar, o  valor do campo será true, quando não estiver será false.
